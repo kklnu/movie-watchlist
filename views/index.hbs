@@ -1,0 +1,37 @@
+<h2>Add a Movie</h2>
+<form id="movieForm">
+    <label for="title">Movie Title</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description" required>
+
+    <div style="display: flex; align-items: center; gap: 5px;">
+        <input type="checkbox" id="watched" name="watched">
+        <label for="watched">Watched</label>
+    </div>
+
+    <label for="rating">Rating (1-10)</label>
+    <input type="number" id="rating" name="rating" min="1" max="10" required>
+    <span id="error-message" style="color: red; display: none;">Please enter a valid rating between 1 and 10</span>
+
+    <button type="submit">Add Movie</button>
+</form>
+
+<h2>Movie List</h2>
+<ul id="movieList">
+    {{#if movies.length}}
+        {{#each movies}}
+            <li>
+                <a href="/movies/{{this.id}}"><strong>{{this.title}}</strong></a> - {{#if this.watched}}✅ Watched{{else}}❌ Not Watched{{/if}}<br>
+                <em>{{this.description}}</em><br>
+                <strong>Rating:</strong> {{this.rating}}/10<br>
+                <button onclick="deleteMovie({{this.id}})">Delete</button>
+            </li>
+        {{/each}}
+    {{else}}
+        <p>No movies found. Add one above!</p>
+    {{/if}}
+</ul>
+
+<script src="/script.js"></script>

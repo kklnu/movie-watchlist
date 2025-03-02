@@ -1,0 +1,24 @@
+<h1>{{movie.title}}</h1>
+<p>Watched: {{#if movie.watched}}✅ Yes{{else}}❌ No{{/if}}</p>
+<p><strong>Description:</strong> {{movie.description}}</p>
+<p><strong>Rating:</strong> {{movie.rating}}/10</p>
+
+<button onclick="toggleWatched({{movie.id}})">Toggle Watched</button>
+<button onclick="deleteMovie({{movie.id}})">Delete</button>
+
+<br>
+<a href="/">Back to Watchlist</a>
+
+<script>
+function toggleWatched(id) {
+    fetch(`/movies/${id}`, {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ watched: !{{movie.watched}} })
+    }).then(() => location.reload());
+}
+
+function deleteMovie(id) {
+    fetch(`/movies/${id}`, { method: "DELETE" }).then(() => window.location.href = '/');
+}
+</script>
